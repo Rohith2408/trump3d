@@ -42,7 +42,7 @@ document.body.appendChild(renderer.domElement);
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); 
 const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-cube.position.set(0, 0, 0); 
+cube.position.set(0, 0, 0)
 //scene.add(cube);
 
 //world
@@ -242,14 +242,15 @@ skyUniforms['mieDirectionalG'].value = 0.8;   // Sun direct scattering
 const theta = Math.PI / 2 - Math.PI / 12;  // Elevation angle (lower for dimmer sun)
 const phi = 2 * Math.PI;  // Azimuthal angle (full circle)
 
-sun.x =0
+sun.x =4
 sun.y = 1
-sun.z = 2
+sun.z = 4
 sky.material.uniforms['sunPosition'].value = sun;
 }
 
 function loadLighting(){
   directionalLight.position.set(sun.x, sun.y, sun.z).normalize();
+  directionalLight.castShadow = true; 
   scene.add(directionalLight);
 }
 

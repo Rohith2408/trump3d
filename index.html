@@ -3,8 +3,112 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Trump</title>
+    <div class="socialWrapper">
+      <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394716/dex_u6qh5r.png"/></a>
+      <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394716/instagram_oyvmcy.png"/></a>
+      <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394715/twitter_qy2bpt.png"/></a>
+      <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394716/telegram_tviacm.png"/></a>
+      <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394715/coingecko_m6ytih.png"/></a>
+    </div>
+    <img class="wsad" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737395373/wsad_udpuav.png"/>
 		<style>
 			body { margin: 0; }
+
+      .socialWrapper{
+        position: absolute;
+        z-index: 1;
+        top: 5%;
+        right: 5%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .socialicons{
+        object-fit: contain;
+        height: auto;
+      }
+
+      .wsad{
+        position: absolute;
+        bottom: 5%;
+        left: 5%;
+      }
+
+      @media screen and (max-width:500px) {
+
+      .socialWrapper{
+          gap: 30px;
+      }
+
+      .socialicons{
+          width:40px;
+          border-radius: 100px;
+      }
+
+      .wsad{
+        width: 20px;
+        height: auto;
+        object-fit: contain;
+      }
+
+      }
+
+      @media screen and (min-width:501px) and (max-width:1023px) {
+
+      .socialWrapper{
+          gap: 30px;
+      }
+
+      .socialicons{
+          width:40px;
+          border-radius: 100px;
+      }
+
+      .wsad{
+        width: 100px;
+        height: auto;
+        object-fit: contain;
+        display: none;
+      }
+    }
+
+    @media screen and (min-width:1024px) and (max-width:1920px) {
+
+      .socialWrapper{
+        gap: 40px;
+      }
+
+      .socialicons{
+        width:44px;
+        border-radius: 100px;
+      }
+
+      .wsad{
+        width: 150px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
+    @media screen and (min-width:1921px){
+      .socialWrapper{
+          gap: 60px;
+      }
+
+      .socialicons{
+          width:80px;
+          border-radius: 100px;
+      }
+
+      .wsad{
+        width: 170px;
+        height: auto;
+        object-fit: contain;
+      }
+
+    }
 		</style>
 	</head>
 	<body>
