@@ -272,7 +272,7 @@ sky.material.uniforms['sunPosition'].value = sun;
 function loadLighting(){
   directionalLight.position.set(sun.x, sun.y, sun.z).normalize();
   directionalLight.castShadow = true; 
-  directionalLight.intensity=10;
+  directionalLight.intensity=14;
   ambientLight.position.set(-10,20,2)
   ambientLight.intensity=10
   scene.add(directionalLight);
