@@ -13,6 +13,10 @@ const GLTFloader = new GLTFLoader();
 const FBXloader = new FBXLoader();
 const layoutDimensions={width:100,height:100}
 const playerBoundary={top:50,bottom:50,left:50,right:50};
+let trump;
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
 
 const clock = new THREE.Clock();
 let mixer;
@@ -20,12 +24,14 @@ let mixer;
 //sky
 const sun = new THREE.Vector3();
 const sky = new Sky();
-sky.scale.setScalar(450000);
+sky.scale.setScalar(45000);
 scene.add(sky);
 loadSky()
 
 //lighting
+const spotLight = new THREE.SpotLight(0xffffff, 1, 100, Math.PI / 4, 0.1, 2);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 10);  // Intensity set to 1 for normal lighting
+const ambientLight = new THREE.AmbientLight(0x404040); // Color of the light (hex code)
 loadLighting()
 
 // Create camera 
@@ -34,7 +40,7 @@ camera.position.set(0, 0.85, 0);
 // camera.lookAt(0, 0, 0);
 
 // Create renderer
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -53,8 +59,43 @@ loadWorld()
 
 let speed = 0;
 let rotation=0;
-let speedDelta=0.015;
-let rotationDelta=0.006;
+let speedDelta=0.2//0.015;
+let rotationDelta=0.1//0.006;
+
+//window.addEventListener('mousemove', onMouseMove, false);
+window.addEventListener('mousedown',onDocumentMouseDown,false);
+
+function onMouseMove(event) {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
+function checkIntersection() {
+  raycaster.updateMatrixWorld();
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(trump);
+  if (intersects.length > 0) {
+    onHover();
+  }
+}
+
+function onDocumentMouseDown( event ) {
+  event.preventDefault();
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(trump);
+  if (intersects.length > 0) {
+    console.log("yes")
+    window.open('https://www.donaldjtrump.com', '_blank');
+  }
+
+}
+
+function onHover() {
+  console.log("Hovered over the cube!");
+  
+}
 
 document.addEventListener('keydown', (event) => {
     switch (event.key) {
@@ -94,27 +135,6 @@ document.addEventListener('keydown', (event) => {
     }
   });
 
-  // window.addEventListener('mousedown', (e) => {
-  //   isMouseDown = true;
-  //   prevMouseX = e.clientX;
-  //   prevMouseY = e.clientY;
-  // });
-
-  // window.addEventListener('mouseup', () => {
-  //     isMouseDown = false;
-  // });
-
-//   window.addEventListener('mousemove', (e) => {
-//     if (isMouseDown) {
-//         const deltaX = e.clientX - prevMouseX;
-//         const deltaY = e.clientY - prevMouseY;
-//         cube.rotation.y += deltaX * 0.01;  // Rotate around the Y axis
-//         cube.rotation.x += deltaY * 0.01;  // Rotate around the X axis
-//         prevMouseX = e.clientX;
-//         prevMouseY = e.clientY;
-//     }
-// });
-
   const offset = new THREE.Vector3(0, 2, 3);
   animate();
 
@@ -123,7 +143,7 @@ function animate() {
   //thirdPerson();
   mixer?.update(clock.getDelta());
   firstPerson();
-  
+  //checkIntersection();
   // Render the scene and camera
   renderer.render(scene, camera);
 }
@@ -228,6 +248,7 @@ function loadWorld(){
   loadGLTFModel('./assets/models/plane.gltf',{x:0,y:0,z:0},undefined,1)
   loadGLTFModel('./assets/models/walls.gltf',{x:0,y:0,z:0},undefined,1)
   loadTrump('./assets/models/trump.glb',{x:-1.5,y:0,z:-8},undefined,0.8)
+  loadFlag('./assets/models/flag.glb',{x:-2.25,y:1,z:-11},undefined,1)
   //loadFBXModel('./assets/models/model.fbx',{x:0,y:0,z:0},undefined,0.05)
 }
 
@@ -244,17 +265,56 @@ const phi = 2 * Math.PI;  // Azimuthal angle (full circle)
 
 sun.x =4
 sun.y = 1
-sun.z = 4
+sun.z = 2
 sky.material.uniforms['sunPosition'].value = sun;
 }
 
 function loadLighting(){
   directionalLight.position.set(sun.x, sun.y, sun.z).normalize();
   directionalLight.castShadow = true; 
+  directionalLight.intensity=10;
+  ambientLight.position.set(-10,20,2)
+  ambientLight.intensity=10
   scene.add(directionalLight);
+  scene.add(ambientLight);
+  spotLight.position.set(-1, 0, -2);
+  spotLight.target.position.set(-1, 1,-3);
+  spotLight.intensity=100;
+  //scene.add(spotLight);
+  const spotLightHelper = new THREE.SpotLightHelper(spotLight);
+  const sunHelper=new THREE.DirectionalLightHelper(directionalLight);
+  scene.add(sunHelper);
+  //scene.add(spotLightHelper);
 }
 
 function loadTrump(path,position,rotation,scale){
+  GLTFloader.load(
+    path, 
+    (gltf) => {
+      trump=gltf.scene;
+      const animations = gltf.animations;
+      scene.add(trump);
+      mixer=new THREE.AnimationMixer(trump);
+      if (animations && animations.length > 0) {
+      animations.forEach((clip) => {
+        if (clip.name === "Armature|mixamo.com|Layer0") {
+          mixer.clipAction(clip).play();
+        } 
+      })};
+      trump.position.set(position.x,position.y,position.z);
+      rotation?trump.rotation.set(rotation.x,rotation.y,rotation.z):null;
+      trump.scale.set(scale,scale,scale);
+    },
+    (xhr) => {
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
+    },
+    (error) => {
+      console.error('An error occurred:', error); 
+    }
+  );
+}
+
+function loadFlag(path,position,rotation,scale){
   GLTFloader.load(
     path, 
     (gltf) => {
@@ -265,7 +325,7 @@ function loadTrump(path,position,rotation,scale){
       if (animations && animations.length > 0) {
       animations.forEach((clip) => {
         console.log(clip)
-        if (clip.name === "Armature|mixamo.com|Layer0") {
+        if (clip.name === "Armature|mixamo.com|Layer0_Armature") {
           mixer.clipAction(clip).play();
         } 
       })};
