@@ -59,8 +59,8 @@ loadWorld()
 
 let speed = 0;
 let rotation=0;
-let speedDelta=0.2//0.015;
-let rotationDelta=0.1//0.006;
+let speedDelta=0.02//0.015;
+let rotationDelta=0.008//0.006;
 
 //window.addEventListener('mousemove', onMouseMove, false);
 window.addEventListener('mousedown',onDocumentMouseDown,false);
@@ -247,7 +247,7 @@ function loadWorld(){
   loadGLTFModel('./assets/models/whitehouse.gltf',{x:0,y:0,z:0},undefined,1)
   loadGLTFModel('./assets/models/plane.gltf',{x:0,y:0,z:0},undefined,1)
   loadGLTFModel('./assets/models/walls.gltf',{x:0,y:0,z:0},undefined,1)
-  loadTrump('./assets/models/trump.glb',{x:-1.5,y:0,z:-8},undefined,0.8)
+  loadTrump('./assets/models/trump.glb',{x:-2.2,y:0,z:-8},undefined,0.8)
   loadFlag('./assets/models/flag.glb',{x:-2.25,y:1,z:-11},undefined,1)
   //loadFBXModel('./assets/models/model.fbx',{x:0,y:0,z:0},undefined,0.05)
 }
@@ -283,7 +283,7 @@ function loadLighting(){
   //scene.add(spotLight);
   const spotLightHelper = new THREE.SpotLightHelper(spotLight);
   const sunHelper=new THREE.DirectionalLightHelper(directionalLight);
-  scene.add(sunHelper);
+  //scene.add(sunHelper);
   //scene.add(spotLightHelper);
 }
 

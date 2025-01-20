@@ -15,9 +15,37 @@
       <p id="ca" class="ca"></p>
       <button id="copy" class="copyWrapper"><img class="copyIcon" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737396645/copy_je9vg2.png"></img></button>
     </div>
+    <p class="updates">Exciting updates are on their way.</p>
     <img class="wsad" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737395373/wsad_udpuav.png"/>
 		<style>
 			body { margin: 0; }
+
+      @keyframes swing {
+        0% {
+          opacity: 0;
+        }
+
+        50% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .updates{
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 20px;
+        color: white;
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: swing 1.5s infinite;
+      }
 
       .caHeading,.ca{
         margin: 0;
