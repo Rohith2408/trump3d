@@ -5,14 +5,38 @@
 		<title>Trump</title>
     <div class="socialWrapper">
       <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394716/dex_u6qh5r.png"/></a>
-      <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394716/instagram_oyvmcy.png"/></a>
+      <!-- <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394716/instagram_oyvmcy.png"/></a> -->
       <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394715/twitter_qy2bpt.png"/></a>
       <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394716/telegram_tviacm.png"/></a>
       <a href="" target="_blank" rel="noopener noreferrer" ><img class="socialicons" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737394715/coingecko_m6ytih.png"/></a>
     </div>
+    <div class="cawrapper">
+      <p class="caHeading">CA</p>
+      <p id="ca" class="ca"></p>
+      <button id="copy" class="copyWrapper"><img class="copyIcon" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737396645/copy_je9vg2.png"></img></button>
+    </div>
     <img class="wsad" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737395373/wsad_udpuav.png"/>
 		<style>
 			body { margin: 0; }
+
+      .caHeading,.ca{
+        margin: 0;
+        color: black;
+        font-family:"Boogaloo";
+      }
+
+      .cawrapper{
+        position: absolute;
+        left: 5%;
+        top: 5%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        border-radius: 100px;
+        border: 10px solid;
+      }
 
       .socialWrapper{
         position: absolute;
@@ -36,6 +60,11 @@
         left: 5%;
       }
 
+      .copyWrapper{
+        background-color: transparent;
+        border: none;
+      }
+
       @media screen and (max-width:500px) {
 
       .socialWrapper{
@@ -52,6 +81,19 @@
         height: auto;
         object-fit: contain;
       }
+
+      .cawrapper{
+        padding:14px;
+        gap: 10px;
+    }
+    .caHeading,.ca{
+        font-size:14px;
+    }
+
+    .copyIcon{
+        width:14px;
+        height: auto;
+    }
 
       }
 
@@ -72,6 +114,20 @@
         object-fit: contain;
         display: none;
       }
+
+      .cawrapper{
+        padding:14px;
+        gap: 10px;
+    }
+
+    .caHeading,.ca{
+        font-size:14px;
+    }
+
+    .copyIcon{
+        width:14px;
+        height: auto;
+    }
     }
 
     @media screen and (min-width:1024px) and (max-width:1920px) {
@@ -90,6 +146,20 @@
         height: auto;
         object-fit: contain;
       }
+
+      .cawrapper{
+        padding:16px;
+        gap: 10px;
+    }
+
+    .caHeading,.ca{
+        font-size:16px;
+    }
+
+    .copyIcon{
+        width:20px;
+        height: auto;
+    }
     }
 
     @media screen and (min-width:1921px){
@@ -108,9 +178,28 @@
         object-fit: contain;
       }
 
+      .cawrapper{
+          padding: 20px;
+          gap: 10px;
+      }
+
+      .caHeading,.ca{
+        font-size:28px;
+    }
+
+    .copyIcon{
+        width:26px;
+        height: auto;
+    }
+
     }
 		</style>
 	</head>
+  <script>
+    let ca="TBA";
+    document.getElementById("ca").innerText=ca;
+    document.getElementById("copy").addEventListener("click",()=>{alert("CA has been copied");navigator.clipboard.writeText(ca)});
+  </script>
 	<body>
 		<script type="module" src="/src/main.js"></script>
 	</body>
