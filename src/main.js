@@ -148,7 +148,7 @@ function animate() {
   }
   else
   {
-    trumpplane.position.x=-149
+    trumpplane.position.x=99
   }
   //checkIntersection();
   // Render the scene and camera
