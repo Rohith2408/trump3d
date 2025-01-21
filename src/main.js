@@ -258,8 +258,8 @@ function loadWorld(){
   loadGLTFModel('./assets/models/patch.gltf',{x:0,y:0,z:0},undefined,1)
   loadGLTFModel('./assets/models/plane.gltf',{x:0,y:0,z:0},undefined,1)
   loadTrumpPlane('./assets/models/trumpplane.glb',{x:99,y:30,z:-40},{x:0,y:80,z:0},1)
-  loadTrump('./assets/models/trump.glb',{x:-2.2,y:0,z:-8},undefined,0.8)
-  loadFlag('./assets/models/flag.glb',{x:-2.25,y:1,z:-11},undefined,1)
+  loadTrump('./assets/models/trump.glb',{x:-1.5,y:0,z:-8},undefined,0.8)
+  loadFlag('./assets/models/flag.glb',{x:-1.4,y:1,z:-11},undefined,1)
   loadText('./assets/models/text.glb',{x:0,y:0,z:0},undefined,1)
   //loadFBXModel('./assets/models/plane.fbx',{x:0,y:0,z:0},undefined,0.05)
 }
@@ -308,8 +308,9 @@ function loadTrump(path,position,rotation,scale){
       scene.add(trump);
       mixer=new THREE.AnimationMixer(trump);
       if (animations && animations.length > 0) {
+        let bool=false;
       animations.forEach((clip) => {
-        if (clip.name === "Armature|mixamo.com|Layer0") {
+        if (clip.name === "Armature|mixamo.com|Layer0")  {
           mixer.clipAction(clip).play();
         } 
       })};
@@ -326,7 +327,7 @@ function loadTrump(path,position,rotation,scale){
   );
 }
 
-//
+
 function loadTrumpPlane(path,position,rotation,scale){
   GLTFloader.load(
     path, 
