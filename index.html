@@ -49,6 +49,13 @@
         bottom: 5%;
       }
 
+      .w,.s,.a,.d{
+        pointer-events: none; /* Prevent interaction with the image */
+        user-select: none;    /* Prevent text/image selection */
+        -webkit-user-drag: none; /* Disable dragging on WebKit browsers */
+        -webkit-tap-highlight-color: transparent; /* Remove the blue highlight on mobile */
+      }
+
       @keyframes swing {
         0% {
           opacity: 0;

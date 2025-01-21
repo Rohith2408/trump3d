@@ -346,14 +346,21 @@ function initMobileControls(){
   wKey.addEventListener("mousedown",()=>speed=1);
   wKey.addEventListener("pointerdown",()=>speed=1);
   wKey.addEventListener("mouseup",()=>speed=0);
+  wKey.addEventListener("pointerup",()=>speed=0);
   let sKey=document.getElementById("s");
   sKey.addEventListener("mousedown",()=>speed=-1);
+  sKey.addEventListener("pointerdown",()=>speed=-1);
   sKey.addEventListener("mouseup",()=>speed=0);
+  sKey.addEventListener("pointerup",()=>speed=0);
   let aKey=document.getElementById("a");
   aKey.addEventListener("mousedown",()=>rotation=1);
+  aKey.addEventListener("pointerdown",()=>rotation=1);
   aKey.addEventListener("mouseup",()=>rotation=0);
+  aKey.addEventListener("pointerup",()=>rotation=0);
   let dKey=document.getElementById("d");
   dKey.addEventListener("mousedown",()=>rotation=-1);
+  dKey.addEventListener("pointerdown",()=>rotation=-1);
   dKey.addEventListener("mouseup",()=>rotation=0);
+  dKey.addEventListener("pointerup",()=>rotation=0);
 }
 
