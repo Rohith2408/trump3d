@@ -13,7 +13,7 @@ const GLTFloader = new GLTFLoader();
 const FBXloader = new FBXLoader();
 const layoutDimensions={width:100,height:100}
 const playerBoundary={top:50,bottom:50,left:50,right:50};
-let trump,text;
+let trump,text,trumpplane;
 
 //Define mobile controls
 initMobileControls();
@@ -142,8 +142,17 @@ function animate() {
   //thirdPerson();
   mixer?.update(clock.getDelta());
   firstPerson();
+  if(trumpplane.position.x>-150 && trumpplane.position.x<100)
+  {
+    trumpplane.position.x-=0.25;
+  }
+  else
+  {
+    trumpplane.position.x=-149
+  }
   //checkIntersection();
   // Render the scene and camera
+  
   renderer.render(scene, camera);
 }
 
@@ -243,13 +252,16 @@ function loadFBXModel(path,position,rotation,scale){
 function loadWorld(){
   //loadCliffs();
   //loadTrees();
-  loadGLTFModel('./assets/models/whitehouse.gltf',{x:0,y:0,z:0},undefined,1)
-  loadGLTFModel('./assets/models/plane.gltf',{x:0,y:0,z:0},undefined,1)
+  loadGLTFModel('./assets/models/whitehouse2.gltf',{x:0,y:0,z:0},undefined,1)
+  //loadGLTFModel('./assets/models/plane.glb',{x:0,y:0,z:0},undefined,1)
   loadGLTFModel('./assets/models/walls.gltf',{x:0,y:0,z:0},undefined,1)
+  loadGLTFModel('./assets/models/patch.gltf',{x:0,y:0,z:0},undefined,1)
+  loadGLTFModel('./assets/models/plane.gltf',{x:0,y:0,z:0},undefined,1)
+  loadTrumpPlane('./assets/models/trumpplane.glb',{x:99,y:30,z:-40},{x:0,y:80,z:0},1)
   loadTrump('./assets/models/trump.glb',{x:-2.2,y:0,z:-8},undefined,0.8)
   loadFlag('./assets/models/flag.glb',{x:-2.25,y:1,z:-11},undefined,1)
   loadText('./assets/models/text.glb',{x:0,y:0,z:0},undefined,1)
-  //loadFBXModel('./assets/models/model.fbx',{x:0,y:0,z:0},undefined,0.05)
+  //loadFBXModel('./assets/models/plane.fbx',{x:0,y:0,z:0},undefined,0.05)
 }
 
 function loadSky(){
@@ -314,22 +326,53 @@ function loadTrump(path,position,rotation,scale){
   );
 }
 
+//
+function loadTrumpPlane(path,position,rotation,scale){
+  GLTFloader.load(
+    path, 
+    (gltf) => {
+      trumpplane=gltf.scene;
+      const animations = gltf.animations;
+      scene.add(trumpplane);
+      mixer=new THREE.AnimationMixer(trumpplane);
+      if (animations && animations.length > 0) {
+      animations.forEach((clip) => {
+        console.log(clip);
+        if (clip.name === "Armature|mixamo.com|Layer0") {
+          mixer.clipAction(clip).play();
+        } 
+      })};
+      trumpplane.position.set(position.x,position.y,position.z);
+      rotation?trumpplane.rotation.set(rotation.x,rotation.y,rotation.z):null;
+      trumpplane.scale.set(scale,scale,scale);
+    },
+    (xhr) => {
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
+    },
+    (error) => {
+      console.error('An error occurred:', error); 
+    }
+  );
+}
+
 function loadText(path,position,rotation,scale){
   GLTFloader.load(
     path, 
     (gltf) => {
       text=gltf.scene;
       const animations = gltf.animations;
-      // console.log("text animns",animations);
       scene.add(text);
       mixer=new THREE.AnimationMixer(text);
-      if (animations && animations.length > 0) {
-      animations.forEach((clip) => {
-        console.log("text",clip);
-        if (clip.name === "Swing") {
-          mixer.clipAction(clip).play();
-        } 
-      })};
+      // if (animations && animations.length > 0) {
+      // animations.forEach((clip) => {
+      //   console.log("text",clip);
+      //   if (clip.name === "rotate") {
+      //     const action = mixer.clipAction(clip);
+      //     action.setLoop(THREE.LoopRepeat, Infinity); 
+      //     action.play();
+      //     console.log("aacc",action)
+      //   } 
+      // })};
       text.position.set(position.x,position.y,position.z);
       rotation?text.rotation.set(rotation.x,rotation.y,rotation.z):null;
       text.scale.set(scale,scale,scale);
