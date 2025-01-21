@@ -13,7 +13,7 @@ const GLTFloader = new GLTFLoader();
 const FBXloader = new FBXLoader();
 const layoutDimensions={width:100,height:100}
 const playerBoundary={top:50,bottom:50,left:50,right:50};
-let trump,text,trumpplane;
+let trump,text,trumpplane,whitehouse,aeroplane;
 
 //Define mobile controls
 initMobileControls();
@@ -83,12 +83,21 @@ function onDocumentMouseDown( event ) {
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObject(trump);
-  if (intersects.length > 0) {
+  const intersects2 = raycaster.intersectObject(trump);
+  const intersects1 = raycaster.intersectObject(whitehouse);
+  const intersects3 = raycaster.intersectObject(aeroplane);
+  if (intersects1.length > 0) {
+    console.log("yes")
+    window.open('https://www.whitehouse.gov', '_blank');
+  }
+  if (intersects2.length > 0) {
     console.log("yes")
     window.open('https://www.donaldjtrump.com', '_blank');
   }
-
+  if (intersects3.length > 0) {
+    console.log("yes")
+    window.open('https://www.trump.com/lifestyle/aviation', '_blank');
+  }
 }
 
 function onHover() {
@@ -142,14 +151,17 @@ function animate() {
   //thirdPerson();
   mixer?.update(clock.getDelta());
   firstPerson();
-  if(trumpplane.position.x>-150 && trumpplane.position.x<100)
+  if(trumpplane)
   {
-    trumpplane.position.x-=0.25;
-  }
-  else
-  {
-    trumpplane.position.x=99
-  }
+    if(trumpplane.position.x>-150 && trumpplane.position.x<100)
+    {
+      trumpplane.position.x-=0.25;
+    }
+    else
+    {
+      trumpplane.position.x=99
+    }
+  } 
   //checkIntersection();
   // Render the scene and camera
   
@@ -252,11 +264,11 @@ function loadFBXModel(path,position,rotation,scale){
 function loadWorld(){
   //loadCliffs();
   //loadTrees();
-  loadGLTFModel('./assets/models/whitehouse2.gltf',{x:0,y:0,z:0},undefined,1)
+  loadWhiteHouse('./assets/models/whitehouse2.gltf',{x:0,y:0,z:0},undefined,1)
   //loadGLTFModel('./assets/models/plane.glb',{x:0,y:0,z:0},undefined,1)
   loadGLTFModel('./assets/models/walls.gltf',{x:0,y:0,z:0},undefined,1)
   loadGLTFModel('./assets/models/patch.gltf',{x:0,y:0,z:0},undefined,1)
-  loadGLTFModel('./assets/models/plane2.gltf',{x:0,y:0,z:0},undefined,1)
+  loadAeroplane('./assets/models/plane2.gltf',{x:0,y:0,z:0},undefined,1)
   loadTrumpPlane('./assets/models/trumpplane.glb',{x:99,y:30,z:-40},{x:0,y:80,z:0},1)
   loadTrump('./assets/models/trump.glb',{x:-1.5,y:0,z:-8},undefined,0.8)
   loadFlag('./assets/models/flag.glb',{x:-1.4,y:1,z:-11},undefined,1)
@@ -299,6 +311,26 @@ function loadLighting(){
   //scene.add(spotLightHelper);
 }
 
+function loadAeroplane(path,position,rotation,scale){
+  GLTFloader.load(
+    path, 
+    (gltf) => {
+      aeroplane=gltf.scene;
+      scene.add(aeroplane);
+      mixer=new THREE.AnimationMixer(aeroplane);
+      aeroplane.position.set(position.x,position.y,position.z);
+      rotation?aeroplane.rotation.set(rotation.x,rotation.y,rotation.z):null;
+      aeroplane.scale.set(scale,scale,scale);
+    },
+    (xhr) => {
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
+    },
+    (error) => {
+      console.error('An error occurred:', error); 
+    }
+  );
+}
+
 function loadTrump(path,position,rotation,scale){
   GLTFloader.load(
     path, 
@@ -327,7 +359,6 @@ function loadTrump(path,position,rotation,scale){
   );
 }
 
-
 function loadTrumpPlane(path,position,rotation,scale){
   GLTFloader.load(
     path, 
@@ -346,6 +377,27 @@ function loadTrumpPlane(path,position,rotation,scale){
       trumpplane.position.set(position.x,position.y,position.z);
       rotation?trumpplane.rotation.set(rotation.x,rotation.y,rotation.z):null;
       trumpplane.scale.set(scale,scale,scale);
+    },
+    (xhr) => {
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
+    },
+    (error) => {
+      console.error('An error occurred:', error); 
+    }
+  );
+}
+
+function loadWhiteHouse(path,position,rotation,scale){
+  GLTFloader.load(
+    path, 
+    (gltf) => {
+      whitehouse=gltf.scene;
+      const animations = gltf.animations;
+      scene.add(whitehouse);
+      mixer=new THREE.AnimationMixer(whitehouse);
+      whitehouse.position.set(position.x,position.y,position.z);
+      rotation?whitehouse.rotation.set(rotation.x,rotation.y,rotation.z):null;
+      whitehouse.scale.set(scale,scale,scale);
     },
     (xhr) => {
       console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
