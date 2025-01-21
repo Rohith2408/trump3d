@@ -13,7 +13,7 @@ const GLTFloader = new GLTFLoader();
 const FBXloader = new FBXLoader();
 const layoutDimensions={width:100,height:100}
 const playerBoundary={top:50,bottom:50,left:50,right:50};
-let trump;
+let trump,text;
 
 //Define mobile controls
 initMobileControls();
@@ -248,6 +248,7 @@ function loadWorld(){
   loadGLTFModel('./assets/models/walls.gltf',{x:0,y:0,z:0},undefined,1)
   loadTrump('./assets/models/trump.glb',{x:-2.2,y:0,z:-8},undefined,0.8)
   loadFlag('./assets/models/flag.glb',{x:-2.25,y:1,z:-11},undefined,1)
+  loadText('./assets/models/text.glb',{x:0,y:0,z:0},undefined,1)
   //loadFBXModel('./assets/models/model.fbx',{x:0,y:0,z:0},undefined,0.05)
 }
 
@@ -313,6 +314,35 @@ function loadTrump(path,position,rotation,scale){
   );
 }
 
+function loadText(path,position,rotation,scale){
+  GLTFloader.load(
+    path, 
+    (gltf) => {
+      text=gltf.scene;
+      const animations = gltf.animations;
+      // console.log("text animns",animations);
+      scene.add(text);
+      mixer=new THREE.AnimationMixer(text);
+      if (animations && animations.length > 0) {
+      animations.forEach((clip) => {
+        console.log("text",clip);
+        if (clip.name === "Swing") {
+          mixer.clipAction(clip).play();
+        } 
+      })};
+      text.position.set(position.x,position.y,position.z);
+      rotation?text.rotation.set(rotation.x,rotation.y,rotation.z):null;
+      text.scale.set(scale,scale,scale);
+    },
+    (xhr) => {
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
+    },
+    (error) => {
+      console.error('An error occurred:', error); 
+    }
+  );
+}
+
 function loadFlag(path,position,rotation,scale){
   GLTFloader.load(
     path, 
@@ -323,7 +353,7 @@ function loadFlag(path,position,rotation,scale){
       mixer=new THREE.AnimationMixer(object);
       if (animations && animations.length > 0) {
       animations.forEach((clip) => {
-        console.log(clip)
+        //console.log(clip)
         if (clip.name === "Armature|mixamo.com|Layer0_Armature") {
           mixer.clipAction(clip).play();
         } 
