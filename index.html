@@ -49,12 +49,26 @@
         bottom: 5%;
       }
 
-      .w,.s,.a,.d{
+      .w,.s,.a,.d,.bb{
         pointer-events: none; /* Prevent interaction with the image */
         user-select: none;    /* Prevent text/image selection */
         -webkit-user-drag: none; /* Disable dragging on WebKit browsers */
         -webkit-tap-highlight-color: transparent; /* Remove the blue highlight on mobile */
       }
+
+      .w{
+        transform: scaleY(-1);
+      }
+
+      .a{
+        transform: rotate(90deg)
+      }
+
+      .d{
+        transform: rotate(-90deg);
+      }
+
+      
 
       @keyframes swing {
         0% {
