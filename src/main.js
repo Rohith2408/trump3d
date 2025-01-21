@@ -344,6 +344,7 @@ function loadFlag(path,position,rotation,scale){
 function initMobileControls(){
   let wKey=document.getElementById("w");
   wKey.addEventListener("mousedown",()=>speed=1);
+  wKey.addEventListener("pointerdown",()=>speed=1);
   wKey.addEventListener("mouseup",()=>speed=0);
   let sKey=document.getElementById("s");
   sKey.addEventListener("mousedown",()=>speed=-1);
