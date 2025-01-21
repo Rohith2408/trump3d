@@ -15,6 +15,9 @@ const layoutDimensions={width:100,height:100}
 const playerBoundary={top:50,bottom:50,left:50,right:50};
 let trump;
 
+//Define mobile controls
+initMobileControls();
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
@@ -54,15 +57,11 @@ cube.position.set(0, 0, 0)
 //world
 loadWorld()
 
-// const controls = new OrbitControls(camera, renderer.domElement);
-// controls.update();
-
 let speed = 0;
 let rotation=0;
 let speedDelta=0.02//0.015;
 let rotationDelta=0.008//0.006;
 
-//window.addEventListener('mousemove', onMouseMove, false);
 window.addEventListener('mousedown',onDocumentMouseDown,false);
 
 function onMouseMove(event) {
@@ -340,5 +339,20 @@ function loadFlag(path,position,rotation,scale){
       console.error('An error occurred:', error); 
     }
   );
+}
+
+function initMobileControls(){
+  let wKey=document.getElementById("w");
+  wKey.addEventListener("mousedown",()=>speed=1);
+  wKey.addEventListener("mouseup",()=>speed=0);
+  let sKey=document.getElementById("s");
+  sKey.addEventListener("mousedown",()=>speed=-1);
+  sKey.addEventListener("mouseup",()=>speed=0);
+  let aKey=document.getElementById("a");
+  aKey.addEventListener("mousedown",()=>rotation=1);
+  aKey.addEventListener("mouseup",()=>rotation=0);
+  let dKey=document.getElementById("d");
+  dKey.addEventListener("mousedown",()=>rotation=-1);
+  dKey.addEventListener("mouseup",()=>rotation=0);
 }
 

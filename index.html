@@ -17,8 +17,37 @@
     </div>
     <p class="updates">Exciting updates are on their way.</p>
     <img class="wsad" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737395373/wsad_udpuav.png"/>
-		<style>
+    <div class="ws-wrapper">
+      <button id="w" class="bb"><img class="w" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737457146/darr_cwpfjf.png"/></button>
+      <button id="s" class="bb"><img class="s" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737457146/darr_cwpfjf.png"/></button>
+    </div>
+    <div class="ad-wrapper">
+      <button id="a" class="bb"><img class="a" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737457146/darr_cwpfjf.png"/></button>
+      <button id="d" class="bb"><img class="d" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737457146/darr_cwpfjf.png"/></button>
+    </div>
+    <style>
 			body { margin: 0; }
+      .bb{
+        background-color: transparent;
+        border: none;
+      }
+      .ws-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        left: 5%;
+        bottom: 5%;
+      }
+
+      .ad-wrapper{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        position: absolute;
+        right: 5%;
+        bottom: 5%;
+      }
 
       @keyframes swing {
         0% {
@@ -108,6 +137,7 @@
         width: 20px;
         height: auto;
         object-fit: contain;
+        display: none;
       }
 
       .cawrapper{
@@ -122,6 +152,13 @@
         width:14px;
         height: auto;
     }
+
+    .w,.s,.a,.d{
+      width: 120px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    } 
 
       }
 
@@ -156,6 +193,13 @@
         width:14px;
         height: auto;
     }
+
+    .w,.s,.a,.d{
+      width: 120px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
     }
 
     @media screen and (min-width:1024px) and (max-width:1920px) {
@@ -188,6 +232,10 @@
         width:20px;
         height: auto;
     }
+
+    .w,.s,.a,.d{
+      display: none;
+    }
     }
 
     @media screen and (min-width:1921px){
@@ -218,6 +266,10 @@
     .copyIcon{
         width:26px;
         height: auto;
+    }
+
+    .w,.s,.a,.d{
+      display: none;
     }
 
     }
