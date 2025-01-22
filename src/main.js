@@ -57,7 +57,7 @@ const arrowHelper = new THREE.ArrowHelper(
 
 // Create camera 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 0.85, 0); 
+camera.position.set(-1, 0.95, 4); 
 // camera.lookAt(0, 0, 0);
 
 // Create renderer
@@ -84,6 +84,22 @@ let speedDelta=0.02//0.015;
 let rotationDelta=0.008//0.006;
 
 window.addEventListener('mousedown',onDocumentMouseDown,false);
+
+function createVideoScreen(){
+  const video = document.createElement('video');
+  video.src = "/assets/trumpshoot.mov"; // Replace with your video file
+  video.loop = true;
+  video.muted = true; 
+  video.play();
+  const videoTexture = new THREE.VideoTexture(video);
+  const videoMaterial = new THREE.MeshBasicMaterial({ map: videoTexture });
+  const geometry = new THREE.PlaneGeometry(16, 9); // 16:9 aspect ratio
+  const screen = new THREE.Mesh(geometry, videoMaterial);
+  screen.scale.set(1, 1, 1); // Adjust the screen size
+  screen.position.set(-1.2,10,35);
+  screen.rotation.set(0,3.14,0)
+  scene.add(screen);
+}
 
 function onDocumentMouseDown( event ) {
   event.preventDefault();
@@ -151,6 +167,7 @@ document.addEventListener('keydown', (event) => {
   });
 
   const offset = new THREE.Vector3(0, 2, 3);
+  createVideoScreen()
   animate();
 
 function animate() {
@@ -396,5 +413,7 @@ function loadModelGLTF(id,url, position,rotation, scale, index,animationName,han
     models.push({id:id,model:model,mixer:mixer,handleClick:handleClick,isHoverable:isHoverable})
   });
 }
+
+
 
 
