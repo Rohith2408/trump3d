@@ -306,10 +306,10 @@ function loadWorld(){
   //loadGLTFModel()
   // loadGLTFModel('./assets/models/patch.gltf',{x:0,y:0,z:0},undefined,1)
   loadModelGLTF("aeroplane",'./assets/models/trumpplane.glb',{x:99,y:30,z:-40},{x:0,y:80,z:0},1);
-  loadModelGLTF("ground",'./assets/models/plane.glb',{x:0,y:0,z:0},undefined,1);
+  //loadModelGLTF("ground",'./assets/models/plane.glb',{x:0,y:0,z:0},undefined,1);
   loadModelGLTF("walls",'./assets/models/walls.gltf',{x:0,y:0,z:0},undefined,1);
   loadModelGLTF("patch",'./assets/models/patch.gltf',{x:0,y:0,z:0},undefined,1,1);
-  loadModelGLTF("aeroplane",'./assets/models/plane2.gltf',{x:0,y:0,z:0},undefined,1,1,undefined,()=>window.open('https://www.trump.com/lifestyle/aviation', '_blank'));
+  loadModelGLTF("ground",'./assets/models/plane2.gltf',{x:0,y:0,z:0},undefined,1,1,undefined,()=>window.open('https://www.trump.com/lifestyle/aviation', '_blank'));
   loadModelGLTF("whitehouse",'./assets/models/whitehouse2.gltf',{x:0,y:0,z:0},undefined,1,3,undefined,()=>window.open("https://www.whitehouse.gov", '_blank'),true);
   loadModelGLTF("trump",'./assets/models/trump.glb',{x:-1.5,y:0,z:-8},undefined,0.8,0,"Armature|mixamo.com|Layer0",()=>window.open("https://www.donaldjtrump.com", '_blank'));
   loadModelGLTF("text",'./assets/models/text.glb',{x:0,y:0,z:0},undefined,1,1,"rotate");
