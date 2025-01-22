@@ -89,7 +89,7 @@ function createVideoScreen(){
   const video = document.createElement('video');
   video.src = "/assets/trumpshoot.mov"; // Replace with your video file
   video.loop = true;
-  video.muted = true; 
+  video.muted = false; 
   video.play();
   const videoTexture = new THREE.VideoTexture(video);
   const videoMaterial = new THREE.MeshBasicMaterial({ map: videoTexture });
