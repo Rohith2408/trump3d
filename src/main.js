@@ -85,9 +85,9 @@ let rotationDelta=0.008//0.006;
 
 window.addEventListener('mousedown',onDocumentMouseDown,false);
 
-function createVideoScreen(){
+function createVideoScreen(path,pos,rot){
   const video = document.createElement('video');
-  video.src = "/assets/trumpshoot.mov"; // Replace with your video file
+  video.src = path; // Replace with your video file
   video.loop = true;
   video.muted = false; 
   video.play();
@@ -95,9 +95,9 @@ function createVideoScreen(){
   const videoMaterial = new THREE.MeshBasicMaterial({ map: videoTexture });
   const geometry = new THREE.PlaneGeometry(16, 9); // 16:9 aspect ratio
   const screen = new THREE.Mesh(geometry, videoMaterial);
-  screen.scale.set(1, 1, 1); // Adjust the screen size
-  screen.position.set(-1.2,10,35);
-  screen.rotation.set(0,3.14,0)
+  screen.scale.set(0.35, 0.35, 0.35); // Adjust the screen size
+  screen.position.set(pos.x,pos.y,pos.z);
+  screen.rotation.set(rot.x,rot.y,rot.z);
   scene.add(screen);
 }
 
@@ -167,7 +167,8 @@ document.addEventListener('keydown', (event) => {
   });
 
   const offset = new THREE.Vector3(0, 2, 3);
-  createVideoScreen()
+  createVideoScreen("/assets/trumpshoot.mp4",{x:10,y:5,z:-5},{x:0,y:-3.14/10,z:0})
+  createVideoScreen("/assets/trumpvid.mp4",{x:-10,y:5,z:-5},{x:0,y:3.14/10,z:0})
   animate();
 
 function animate() {
