@@ -158,6 +158,12 @@ function animate() {
   handlerHover();
   handleAnimations();
   firstPerson();
+  handleAeroplane()
+  renderer.render(scene, camera);
+}
+
+function handleAeroplane(){
+  let trumpplane=models.find((model)=>model.id=="aeroplane")?.model
   if(trumpplane)
   {
     if(trumpplane.position.x>-150 && trumpplane.position.x<100)
@@ -169,7 +175,6 @@ function animate() {
       trumpplane.position.x=99
     }
   } 
-  renderer.render(scene, camera);
 }
 
 function showPopup(id){
@@ -214,7 +219,7 @@ function handlerHover(){
       const material = obj.material;
       if (material && material.isMeshStandardMaterial) {
         material.emissive.set(material.color); 
-        material.emissiveIntensity = 0.2;
+        material.emissiveIntensity = 0.35;
       }
     });
   }
@@ -276,43 +281,6 @@ function updateCameraPosition() {
   camera.lookAt(cube.position);
 }
 
-function loadGLTFModel(path,position,rotation,scale){
-    GLTFloader.load(
-      path, 
-      (gltf) => {
-        let object=gltf.scene;
-        scene.add(object);
-        object.position.set(position.x,position.y,position.z);
-        rotation?object.rotation.set(rotation.x,rotation.y,rotation.z):null;
-        object.scale.set(scale,scale,scale);
-      },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
-      },
-      (error) => {
-        console.error('An error occurred:', error); 
-      }
-    );
-}
-
-function loadFBXModel(path,position,rotation,scale){
-  FBXloader.load(
-    path, 
-    (object) => {
-      scene.add(object)
-      object.position.set(position.x,position.y,position.z);
-      rotation?object.rotation.set(rotation.x,rotation.y,rotation.z):null;
-      object.scale.set(scale,scale,scale);
-    },
-    (xhr) => {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
-    },
-    (error) => {
-      console.error('An error occurred:', error); 
-    }
-  );
-}
-
 
 function loadWorld(){
   //loadTrumpPlane('./assets/models/trumpplane.glb',{x:99,y:30,z:-40},{x:0,y:80,z:0},1)
@@ -368,54 +336,6 @@ function loadLighting(){
   const sunHelper=new THREE.DirectionalLightHelper(directionalLight);
   //scene.add(sunHelper);
   //scene.add(spotLightHelper);
-}
-
-function loadAeroplane(path,position,rotation,scale){
-  GLTFloader.load(
-    path, 
-    (gltf) => {
-      aeroplane=gltf.scene;
-      scene.add(aeroplane);
-      aeroplane.position.set(position.x,position.y,position.z);
-      rotation?aeroplane.rotation.set(rotation.x,rotation.y,rotation.z):null;
-      aeroplane.scale.set(scale,scale,scale);
-    },
-    (xhr) => {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
-    },
-    (error) => {
-      console.error('An error occurred:', error); 
-    }
-  );
-}
-
-function loadTrumpPlane(path,position,rotation,scale){
-  GLTFloader.load(
-    path, 
-    (gltf) => {
-      trumpplane=gltf.scene;
-      const animations = gltf.animations;
-      scene.add(trumpplane);
-      let mixer=new THREE.AnimationMixer(trumpplane);
-      if (animations && animations.length > 0) {
-      animations.forEach((clip) => {
-        console.log(clip);
-        if (clip.name === "Armature|mixamo.com|Layer0") {
-          mixer.clipAction(clip).play();
-        } 
-      })};
-      mixers.push(mixer)
-      trumpplane.position.set(position.x,position.y,position.z);
-      rotation?trumpplane.rotation.set(rotation.x,rotation.y,rotation.z):null;
-      trumpplane.scale.set(scale,scale,scale);
-    },
-    (xhr) => {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); 
-    },
-    (error) => {
-      console.error('An error occurred:', error); 
-    }
-  );
 }
 
 function setRaycast(event) {
@@ -475,22 +395,6 @@ function loadModelGLTF(id,url, position,rotation, scale, index,animationName,han
     }
     models.push({id:id,model:model,mixer:mixer,handleClick:handleClick,isHoverable:isHoverable})
   });
-}
-
-function addQueryParam(key, value) {
-  const url = new URL(window.location); 
-  url.searchParams.set(key, value); 
-  window.history.pushState({}, '', url); 
-}
-
-function getQueryParam(key) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const paramsObject = {};
-  urlParams.forEach((value, key) => {
-    paramsObject[key] = value;
-  });
-  console.log("params",paramsObject[key])
-  return paramsObject[key]; 
 }
 
 
