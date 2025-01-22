@@ -25,8 +25,47 @@
       <button id="a" class="bb"><img class="a" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737457146/darr_cwpfjf.png"/></button>
       <button id="d" class="bb"><img class="d" loading="lazy" alt="" src="https://res.cloudinary.com/dfbxzbvw1/image/upload/v1737457146/darr_cwpfjf.png"/></button>
     </div>
+    <button id="popup-wrapper" class="popup-wrapper">
+      <div class="popup-body-wrapper">
+        <p id="popup-title" class="popup-title"></p>
+        <p id="popup-body" class="popup-body"></p>
+      </div>
+    </button>
     <style>
 			body { margin: 0; }
+      .popup-wrapper{
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: scale(0);
+        transition: transform 0.2s;
+      }
+      .popup-body-wrapper{
+        /* width: 75%;
+        height: 75%; */
+        padding: 30px;
+        box-sizing: border-box;
+        background-color: black;
+        border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .popup-title{
+        color: white;
+        max-width: 75%;
+      }
+      .popup-body{
+        color: white;
+        max-width: 75%;
+        line-height: 30px;
+      }
       .bb{
         background-color: transparent;
         border: none;
@@ -305,6 +344,9 @@
     let ca="TBA";
     document.getElementById("ca").innerText=ca;
     document.getElementById("copy").addEventListener("click",()=>{alert("CA has been copied");navigator.clipboard.writeText(ca)});
+    document.getElementById("popup-wrapper").addEventListener("click",()=>{
+      document.getElementById("popup-wrapper").style.transform="scale(0)"
+    });
   </script>
 	<body>
 		<script type="module" src="/src/main.js"></script>
