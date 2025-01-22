@@ -306,7 +306,7 @@ function loadWorld(){
   //loadGLTFModel()
   // loadGLTFModel('./assets/models/patch.gltf',{x:0,y:0,z:0},undefined,1)
   loadModelGLTF("aeroplane",'./assets/models/trumpplane.glb',{x:99,y:30,z:-40},{x:0,y:80,z:0},1);
-  //loadModelGLTF("ground",'./assets/models/plane.glb',{x:0,y:0,z:0},undefined,1);
+  loadModelGLTF("patch",'./assets/models/plane.glb',{x:0,y:0,z:0},undefined,1);
   loadModelGLTF("walls",'./assets/models/walls.gltf',{x:0,y:0,z:0},undefined,1);
   loadModelGLTF("patch",'./assets/models/patch.gltf',{x:0,y:0,z:0},undefined,1,1);
   loadModelGLTF("ground",'./assets/models/plane2.gltf',{x:0,y:0,z:0},undefined,1,1,undefined,()=>window.open('https://www.trump.com/lifestyle/aviation', '_blank'));
