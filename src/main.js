@@ -89,7 +89,7 @@ function createVideoScreen(path,pos,rot){
   const video = document.createElement('video');
   video.src = path; // Replace with your video file
   video.loop = true;
-  video.muted = false; 
+  video.muted = true; 
   video.play();
   const videoTexture = new THREE.VideoTexture(video);
   const videoMaterial = new THREE.MeshBasicMaterial({ map: videoTexture });
