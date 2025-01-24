@@ -8,7 +8,7 @@ import { setupRenderer } from '../src/helpers/RendererHelper.js'
 import { updateCameraAspect } from '../src/helpers/CameraHelper.js'
 import { SetAmbientLighting } from '../src/helpers/LightingHelper.js'
 
-const imagePath = '../public/assets/textures/sky.jpg'
+const imagePath = '/assets/textures/sky.jpg'
 
 // Create scene
 const scene = new THREE.Scene();
