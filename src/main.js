@@ -3,7 +3,12 @@ import { Sky } from 'three/addons/objects/Sky.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { setSkySphere_JPG } from '../src/helpers/SkysphereHelper'
+import { setupRenderer } from '../src/helpers/RendererHelper.js'
+import { updateCameraAspect } from '../src/helpers/CameraHelper.js'
+import { SetAmbientLighting } from '../src/helpers/LightingHelper.js'
 
+const imagePath = '../public/assets/textures/sky.jpg'
 
 // Create scene
 const scene = new THREE.Scene();
@@ -22,7 +27,9 @@ const popups=[
   {id:2,title:"Political Career",body:"Presidential Campaign: In 2015, Trump announced his candidacy for president as a Republican, running on themes of nationalism, immigration reform, and economic populism. His slogan, “Make America Great Again” (MAGA), became iconic.2016 Election: Trump defeated Hillary Clinton in a stunning political upset, becoming the 45th president of the United States.Presidency: His term (2017–2021) was marked by significant controversies, policy shifts, and events, including:Tax reform and deregulation.A hardline stance on immigration, including the controversial travel bans.A trade war with China.Two impeachments: one over alleged pressure on Ukraine to investigate political rivals and another over the January 6 Capitol riot.2020 Election: Trump lost reelection to Joe Biden but refused to concede, claiming widespread voter fraud—a claim that led to intense political polarization and the Capitol riot."},
   {id:3,title:"Post Presidency",body:"Cultural Impact: Trump remains a polarizing figure, celebrated by supporters for his outsider status and criticized by opponents for his rhetoric and policies.Media Presence: He continues to influence Republican politics and remains a dominant figure in American media and culture."}
 ]
-//const popupState
+
+SetAmbientLighting(scene);
+setSkySphere_JPG(scene, imagePath);
 
 //Define mobile controls
 initMobileControls();
@@ -58,9 +65,12 @@ const arrowHelper = new THREE.ArrowHelper(
 // Create camera 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(-1, 0.95, 4); 
+updateCameraAspect(camera);
+scene.add(camera);
 // camera.lookAt(0, 0, 0);
 
 // Create renderer
+//const renderer = setupRenderer();
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -310,7 +320,8 @@ function loadWorld(){
   loadModelGLTF("patch",'./assets/models/plane.glb',{x:0,y:0,z:0},undefined,1);
   loadModelGLTF("walls",'./assets/models/walls.gltf',{x:0,y:0,z:0},undefined,1);
   loadModelGLTF("patch",'./assets/models/patch.gltf',{x:0,y:0,z:0},undefined,1,1);
-  loadModelGLTF("ground",'./assets/models/plane2.gltf',{x:0,y:0,z:0},undefined,1,1,undefined,()=>window.open('https://www.trump.com/lifestyle/aviation', '_blank'));
+  loadModelGLTF("ground",'./assets/models/plane2.gltf',{x:0,y:0,z:0},undefined,1,1,undefined);
+  //loadModelGLTF("ground",'./assets/models/ground.gltf',{x:0,y:0,z:0},undefined,1,1,undefined);
   loadModelGLTF("whitehouse",'./assets/models/whitehouse2.gltf',{x:0,y:0,z:0},undefined,1,3,undefined,()=>window.open("https://www.whitehouse.gov", '_blank'),true);
   loadModelGLTF("trump",'./assets/models/trump.glb',{x:-1.5,y:0,z:-8},undefined,0.8,0,"Armature|mixamo.com|Layer0",()=>window.open("https://www.donaldjtrump.com", '_blank'));
   loadModelGLTF("text",'./assets/models/text.glb',{x:0,y:0,z:0},undefined,1,1,"rotate");
